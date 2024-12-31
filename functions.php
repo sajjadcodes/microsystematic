@@ -1,27 +1,7 @@
 <?php
-
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+// Enqueue parent and child theme styles
+function microsystematic_enqueue_styles() {
+    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
+    wp_enqueue_style('child-style', get_stylesheet_directory_uri() . '/style.css', ['parent-style']);
 }
-
-define( 'MICROSYSTEMATIC_VERSION', '2.0.0' );
-
-/**
- * Load child theme scripts & styles.
- *
- * @return void
- */
-function microsystamtic_scripts_styles() {
-
-	wp_enqueue_style(
-		'microsystematic-style',
-		get_stylesheet_directory_uri() . '/style.css',
-		[
-			'microsystematic-theme-style',
-		],
-		MICROSYSTEMATIC_VERSION
-	);
-
-}
-add_action( 'wp_enqueue_scripts', 'microsystematic_scripts_styles', 20 );
+add_action('wp_enqueue_scripts', 'microsystematic_enqueue_styles');
